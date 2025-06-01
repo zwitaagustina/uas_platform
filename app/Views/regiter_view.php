@@ -6,6 +6,6 @@
     <title>Register</title>
 </head>
 <body>
-    Dalam
+    <h1>sdjhcgsc</h1>
 </body>
 </html>
