@@ -14,7 +14,7 @@ Femmea adalah sebuah platform E-Commerce modern yang menjual berbagai jenis fash
 
 Proyek ini dikembangkan oleh tim kolaboratif:
 
-* **Zwita-**
+* **Zwita**
 * **Yosephine**
 * **Vincensia**
 
