@@ -25,6 +25,7 @@
 
   <div class="row text-center mt-4">
 
+  <?php if (!empty($barang)) : ?>
     <?php foreach ($barang as $brg) : ?>
       <div class="col-md-4 col-sm-6 mb-4">
         <div class="card h-100">
@@ -39,11 +40,13 @@
             <p class="card-text"><?= esc($brg['deskripsi']) ?></p>
             <p class="card-text"><strong>Harga:</strong> Rp <?= number_format($brg['harga'], 0, ',', '.') ?></p>
             <a href="<?= base_url('barang/detail/' . $brg['product_id']) ?>" class="btn btn-primary">Lihat Detail</a>
-                          <a href="<?= base_url('keranjang/tambah/' . $brg['product_id']) ?>" class="btn btn-success btn-sm">Tambah ke Keranjang</a>
+            <a href="<?= base_url('dasboard/tambah_ke_keranjang/' . $brg['product_id']) ?>" class="btn btn-sm btn-success">Tambah ke Keranjang</a>
           </div>
         </div>
       </div>
     <?php endforeach; ?>
-
+  <?php else : ?>
+  <p class="text-center mt-4">Tidak ada produk yang tersedia saat ini.</p>
+<?php endif; ?>
   </div>
 </div>

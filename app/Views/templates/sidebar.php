@@ -142,6 +142,14 @@
                             </div>
                         </li>
 
+                       <div class="navbar">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                   Keranjang Belanja: <?= isset($total_item) ? esc($total_item) : '0' ?> items
+                                </li>
+                            </ul>
+                        </div>
+
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
