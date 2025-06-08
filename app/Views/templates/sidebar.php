@@ -142,13 +142,11 @@
                             </div>
                         </li>
 
-                       <div class="navbar">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li>
-                                   Keranjang Belanja: <?= isset($total_item) ? esc($total_item) : '0' ?> items
-                                </li>
-                            </ul>
-                        </div>
+                         <li class="nav-item">
+                            <a class="nav-link" href="<?= base_url('dasboard/lihat_keranjang') ?>">
+                                Keranjang Belanja: <?= esc($total_item) ?> items
+                            </a>
+                        </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
