@@ -95,6 +95,59 @@ class DasboardController extends BaseController
         }
         return $total;
     }
+
+    public function hapus_keranjang()
+    {
+        $this->session->remove('cart'); // Menghapus data keranjang dari session
+        return redirect()->to(base_url('dasboard')); // Redirect ke halaman dasboard
+    }
+    public function pembayaran()
+    {
+       $cart = $this->session->get('cart') ?? [];
+        $data = [
+            'judul' => 'Pembayaran',
+            'cart' => $cart,
+            'total_item' => $this->countCartItems(),
+        ];
+        
+        echo view('templates/header');
+        echo view('templates/sidebar', $data);
+        echo view('pembayaran', $data);
+        echo view('templates/footer'); 
+    }
+    
+     public function proses_pesanan()
+    {
+        $nama    = $this->request->getPost('nama');
+        $alamat  = $this->request->getPost('alamat');
+        $no_telp = $this->request->getPost('no_telp');
+        $jasa_pengiriman = $this->request->getPost('jasa_pengiriman');
+        $bank    = $this->request->getPost('bank');
+        $cart    = $this->session->get('cart') ?? [];
+
+        if(empty($cart)) {
+            return redirect()->to(base_url('dasboard/lihat_keranjang'))->with('error', 'Keranjang belanja kosong.');
+        }
+
+        $data = [
+            'nama' => $nama,
+            'alamat' => $alamat,
+            'no_telp' => $no_telp,
+            'jasa_pengiriman' => $jasa_pengiriman,
+            'bank' => $bank,
+            'cart' => $cart,
+            'total_item' => $this->countCartItems(),
+        ];
+
+        // Setelah proses pesanan, hapus keranjang
+        $this->session->remove('cart');
+
+        // Tampilkan halaman konfirmasi pesanan
+        echo view('templates/header');
+        echo view('templates/sidebar', $data);
+        echo view('konfirmasi_pesanan', $data);
+        echo view('templates/footer');
+    }
 }
 
 

@@ -35,22 +35,18 @@
             <td align="right"><strong>Rp <?= number_format($total, 0, ',', '.') ?></strong></td>
             <td></td>
         </tr>
-
     </table>
  
     <div align="right">
-        <a href="<?php echo base_url('dasboard/hapus_keranjang') ?>"><div
-        class="btn btn-sm btn-danger">Hapus Keranjang</div></a>
-        <a href="<?php echo base_url('dasboard/index') ?>"><div
-        class="btn btn-sm btn-primary">Lanjutkan Belanja</div></a>
-        <a href="<?php echo base_url('dasboard/pembayaran') ?>"><div
-        class="btn btn-sm btn-success">Pembayaran</div></a>
+        <a href="<?= base_url('dasboard/hapus_keranjang') ?>" class="btn btn-sm btn-danger">Hapus Keranjang</a>
+        <a href="<?= base_url('dasboard') ?>" class="btn btn-sm btn-primary">Lanjutkan Belanja</a>
+        <a href="<?= base_url('dasboard/pembayaran') ?>" class="btn btn-sm btn-success">Pembayaran</a>
     </div>
 
     <?php else : ?>
         <p>Keranjang Anda kosong.</p>
     <?php endif; ?>
-
 </div>
+
 
 
