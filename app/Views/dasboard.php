@@ -8,7 +8,7 @@
     <div class="carousel-inner">
         <div class="carousel-item active">
         <img src="<?= base_url('assets/img/carousel1.jpg') ?>" class="d-block w-100" alt="...">
-        </div>
+        </div>   
         <div class="carousel-item">
         <img src="<?= base_url('assets/img/carousel2.jpg') ?>" class="d-block w-100" alt="...">
         </div>
