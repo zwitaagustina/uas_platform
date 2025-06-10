@@ -3,26 +3,35 @@
 namespace App\Controllers;
 
 use App\Models\ModelBarang;
+use App\Models\ModelRiwayat;
 
 class DasboardController extends BaseController
 {
     protected $modelBarang;
+    protected $modelRiwayat;
     protected $session;
 
     public function __construct()
     {
-        $this->modelBarang = new ModelBarang();
         helper(['url', 'form']);
         $this->session = session();
+        $this->modelBarang = new ModelBarang();
+        $this->modelRiwayat = new ModelRiwayat();
     }
 
     public function index()
     {
+        $riwayatData = $this->modelRiwayat->tampil_data();
+        $totalRiwayat = is_array($riwayatData) ? count($riwayatData) : 0;
+
+        $cart = $this->session->get('cart') ?? [];
+
         $data = [
             'judul' => 'Barang',
             'barang' => $this->modelBarang->tampil_data(),
-            'cart' => $this->session->get('cart') ?? [],
+            'cart' => $cart,
             'total_item' => $this->countCartItems(),
+            'totalRiwayat' => $totalRiwayat,
         ];
 
         echo view('templates/header');
@@ -49,7 +58,7 @@ class DasboardController extends BaseController
                 'name' => $barang['nama_produk'],
                 'price' => $barang['harga'],
                 'qty' => 1,
-                'stok' => $barang['stok']
+                'stok' => $barang['stok'],
             ];
         }
 
@@ -98,57 +107,61 @@ class DasboardController extends BaseController
 
     public function hapus_keranjang()
     {
-        $this->session->remove('cart'); // Menghapus data keranjang dari session
-        return redirect()->to(base_url('dasboard')); // Redirect ke halaman dasboard
+        $this->session->remove('cart'); // Hapus keranjang session
+        return redirect()->to(base_url('dasboard'));
     }
+
     public function pembayaran()
     {
-       $cart = $this->session->get('cart') ?? [];
+        $cart = $this->session->get('cart') ?? [];
+
         $data = [
             'judul' => 'Pembayaran',
             'cart' => $cart,
             'total_item' => $this->countCartItems(),
         ];
-        
+
         echo view('templates/header');
         echo view('templates/sidebar', $data);
         echo view('pembayaran', $data);
-        echo view('templates/footer'); 
+        echo view('templates/footer');
     }
-    
-     public function proses_pesanan()
-    {
-        $nama    = $this->request->getPost('nama');
-        $alamat  = $this->request->getPost('alamat');
-        $no_telp = $this->request->getPost('no_telp');
-        $jasa_pengiriman = $this->request->getPost('jasa_pengiriman');
-        $bank    = $this->request->getPost('bank');
-        $cart    = $this->session->get('cart') ?? [];
 
-        if(empty($cart)) {
-            return redirect()->to(base_url('dasboard/lihat_keranjang'))->with('error', 'Keranjang belanja kosong.');
-        }
+    public function proses_pesanan()
+{
+    $nama_pemesan    = $this->request->getPost('nama');
+    $alamat          = $this->request->getPost('alamat');
+    $cart            = $this->session->get('cart') ?? [];
 
+    if (empty($cart)) {
+        return redirect()->to(base_url('dasboard/lihat_keranjang'))->with('error', 'Keranjang kosong.');
+    }
+
+    $dataInvoice = [
+        'nama_pemesan' => $nama_pemesan,
+        'alamat'       => $alamat,
+    ];
+
+    $id_invoice = $this->modelRiwayat->simpan_invoice($dataInvoice, $cart);
+
+    if ($id_invoice) {
+        $this->session->remove('cart');
         $data = [
-            'nama' => $nama,
-            'alamat' => $alamat,
-            'no_telp' => $no_telp,
-            'jasa_pengiriman' => $jasa_pengiriman,
-            'bank' => $bank,
-            'cart' => $cart,
+            'judul' => 'Konfirmasi Pesanan',
+            'id_invoice' => $id_invoice,
             'total_item' => $this->countCartItems(),
         ];
 
-        // Setelah proses pesanan, hapus keranjang
-        $this->session->remove('cart');
-
-        // Tampilkan halaman konfirmasi pesanan
         echo view('templates/header');
         echo view('templates/sidebar', $data);
         echo view('konfirmasi_pesanan', $data);
         echo view('templates/footer');
+    } else {
+        return redirect()->back()->with('error', 'Gagal memproses pesanan.');
     }
 }
+}
+
 
 
 
