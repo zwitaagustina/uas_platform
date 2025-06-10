@@ -16,3 +16,5 @@ $routes->post('/dasboard/proses_pesanan', 'DasboardController::proses_pesanan');
 $routes->get('/dasboard/riwayat', 'RiwayatController::index');
 $routes->get('/riwayat', 'RiwayatController::index'); // halaman utama riwayat
 $routes->get('/riwayat/detail/(:num)', 'RiwayatController::detail/$1'); // detail invoice berdasarkan ID
+$routes->get('dasboard/detail/(:num)', 'DasboardController::detail/$1');
+

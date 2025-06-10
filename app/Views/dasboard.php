@@ -39,7 +39,7 @@
             <h5 class="card-title"><?= esc($brg['nama_produk']) ?></h5>
             <p class="card-text"><?= esc($brg['deskripsi']) ?></p>
             <p class="card-text"><strong>Harga:</strong> Rp <?= number_format($brg['harga'], 0, ',', '.') ?></p>
-            <a href="<?= base_url('barang/detail/' . $brg['product_id']) ?>" class="btn btn-primary">Lihat Detail</a>
+            <a href="<?= base_url('dasboard/detail/' . $brg['product_id']) ?>" class="btn btn-primary">Lihat Detail</a>
             <a href="<?= base_url('dasboard/tambah_ke_keranjang/' . $brg['product_id']) ?>" class="btn btn-sm btn-success">Tambah ke Keranjang</a>
           </div>
         </div>

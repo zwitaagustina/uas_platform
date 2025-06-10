@@ -19,5 +19,10 @@ class ModelBarang extends Model
     {
         return $this->find($id);
     }
-}
+    public function detail_brg($id_brg)
+    {
+        return $this->find($id_brg); // Karena primaryKey sudah di-setup
+    }
+    }
+
 

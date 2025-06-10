@@ -166,6 +166,25 @@ class DasboardController extends BaseController
         return redirect()->back()->with('error', 'Gagal memproses pesanan.');
     }
 }
+    public function detail($id_brg)
+    {
+        $barang = $this->modelBarang->detail_brg($id_brg);
+
+        if (!$barang) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Produk tidak ditemukan.");
+        }
+
+        $data = [
+            'barang' => $barang,
+            'total_item' => $this->countCartItems(),
+            'totalRiwayat' => count($this->modelRiwayat->tampil_data())
+        ];
+
+        echo view('templates/header');
+        echo view('templates/sidebar', $data);
+        echo view('detail_barang', $data);
+        echo view('templates/footer');
+    }
 }
 
 
