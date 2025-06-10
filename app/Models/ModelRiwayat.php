@@ -7,14 +7,13 @@ class ModelRiwayat extends Model
 {
     protected $table = 'invoice';
     protected $primaryKey = 'id_invoice';
-    protected $allowedFields = ['nama_pemesan', 'alamat', 'tgl_pesan', 'batas_bayar'];
+   protected $allowedFields = ['nama_pemesan', 'alamat', 'tgl_pesan', 'batas_bayar', 'bank', 'jasa_pengiriman'];
 
     public function simpan_invoice($dataInvoice, $cartItems)
     {
         date_default_timezone_set('Asia/Jakarta');
         $dataInvoice['tgl_pesan'] = date('Y-m-d H:i:s');
-        $dataInvoice['batas_bayar'] = date('Y-m-d H:i:s', strtotime('+1 day'));
-
+       
         $this->insert($dataInvoice);
         $id_invoice = $this->getInsertID();
 
