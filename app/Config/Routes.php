@@ -25,3 +25,7 @@ $routes->get('kategori/celana', 'KategoriController::celana');
 $routes->get('kategori/rok_gaun', 'KategoriController::rok_gaun');
 $routes->get('kategori/aksesoris', 'KategoriController::aksesoris');
 
+// Tambahan rute untuk Auth (login & logout)
+$routes->get('/auth/login', 'Auth::login');
+$routes->post('/auth/login', 'Auth::login');
+$routes->get('/auth/logout', 'Auth::logout');
