@@ -17,4 +17,11 @@ $routes->get('/dasboard/riwayat', 'RiwayatController::index');
 $routes->get('/riwayat', 'RiwayatController::index'); // halaman utama riwayat
 $routes->get('/riwayat/detail/(:num)', 'RiwayatController::detail/$1'); // detail invoice berdasarkan ID
 $routes->get('dasboard/detail/(:num)', 'DasboardController::detail/$1');
+$routes->get('/kategori/(:segment)', 'KategoriController::kategori/$1');
+$routes->get('kategori/tshirt', 'KategoriController::tshirt');
+$routes->get('kategori/kemeja_blus', 'KategoriController::kemeja_blus');
+$routes->get('kategori/sweater_cardigan', 'KategoriController::sweater_cardigan');
+$routes->get('kategori/celana', 'KategoriController::celana');
+$routes->get('kategori/rok_gaun', 'KategoriController::rok_gaun');
+$routes->get('kategori/aksesoris', 'KategoriController::aksesoris');
 

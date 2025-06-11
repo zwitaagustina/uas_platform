@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - dasboard</title>
+    <title>Femmea - dasboard</title>
 
     <!-- Custom fonts for this template-->
    <!-- Font Awesome Icons -->

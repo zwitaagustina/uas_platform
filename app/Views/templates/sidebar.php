@@ -45,42 +45,49 @@
                 Kategori
             </div>
 
-            <!-- Nav Item - Tables -->
+                        <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>T-shirt</span></a>
+            <a class="nav-link" href="<?= base_url('kategori/tshirt') ?>">
+                <i class="fas fa-fw fa-th"></i>
+                <span>T-shirt</span>
+            </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Kemeja & Blus</span></a>
+            <a class="nav-link" href="<?= base_url('kategori/kemeja_blus') ?>">
+                <i class="fas fa-fw fa-th"></i>
+                <span>Kemeja & Blus</span>
+            </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Sweater & Cardigan</span></a>
+            <a class="nav-link" href="<?= base_url('kategori/sweater_cardigan') ?>">
+                <i class="fas fa-fw fa-th"></i>
+                <span>Sweater & Cardigan</span>
+            </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Celana</span></a>
+            <a class="nav-link" href="<?= base_url('kategori/celana') ?>">
+                <i class="fas fa-fw fa-th"></i>
+                <span>Celana</span>
+            </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Rok & Gaun</span></a>
+            <a class="nav-link" href="<?= base_url('kategori/rok_gaun') ?>">
+                <i class="fas fa-fw fa-th"></i>
+                <span>Rok & Gaun</span>
+            </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Aksesoris</span></a>
+            <a class="nav-link" href="<?= base_url('kategori/aksesoris') ?>">
+                <i class="fas fa-fw fa-th"></i>
+                <span>Aksesoris</span>
+            </a>
             </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
