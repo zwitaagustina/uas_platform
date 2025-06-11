@@ -131,7 +131,7 @@ class DasboardController extends BaseController
 {
     $nama_pemesan    = $this->request->getPost('nama');
     $alamat          = $this->request->getPost('alamat');
-    $no_telp         = $this->request->getPost('no_telp'); // opsional jika masih ada
+    $no_telp         = $this->request->getPost('no_telp');
     $jasa_pengiriman = $this->request->getPost('jasa_pengiriman');
     $bank            = $this->request->getPost('bank');
     $cart            = $this->session->get('cart') ?? [];
@@ -141,21 +141,27 @@ class DasboardController extends BaseController
     }
 
     $dataInvoice = [
-        'nama_pemesan'     => $nama_pemesan,
-        'alamat'           => $alamat,
-        'no_telp'          => $no_telp,
-        'jasa_pengiriman'  => $jasa_pengiriman,
-        'bank'             => $bank,
+        'nama_pemesan'    => $nama_pemesan,
+        'alamat'          => $alamat,
+        'no_telp'         => $no_telp,
+        'jasa_pengiriman' => $jasa_pengiriman,
+        'bank'            => $bank,
     ];
 
     $id_invoice = $this->modelRiwayat->simpan_invoice($dataInvoice, $cart);
 
     if ($id_invoice) {
+        // Update stok produk per item setelah invoice berhasil disimpan
+        foreach ($cart as $item) {
+            $this->modelBarang->updateStok($item['id'], $item['qty']);
+        }
+
         $this->session->remove('cart');
+
         $data = [
             'judul' => 'Konfirmasi Pesanan',
             'id_invoice' => $id_invoice,
-            'total_item' => $this->countCartItems(),
+            'total_item' => 0, // Karena keranjang sudah dihapus
         ];
 
         echo view('templates/header');
@@ -166,6 +172,7 @@ class DasboardController extends BaseController
         return redirect()->back()->with('error', 'Gagal memproses pesanan.');
     }
 }
+
     public function detail($id_brg)
     {
         $barang = $this->modelBarang->detail_brg($id_brg);

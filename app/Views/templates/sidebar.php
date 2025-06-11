@@ -18,11 +18,13 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                    <li class="nav-item active">
+                <a href="<?= base_url('dasboard') ?>" class="nav-link btn btn-sm btn-primary">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>dasboard</span></a>
+                    <span>Dashboard</span>
+                </a>
             </li>
+
 
               <!-- Tambahkan Riwayat Pesanan di sini -->
             <li class="nav-item">

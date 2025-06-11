@@ -23,6 +23,14 @@ class ModelBarang extends Model
     {
         return $this->find($id_brg); // Karena primaryKey sudah di-setup
     }
+    public function updateStok($product_id, $jumlah)
+    {
+        $builder = $this->builder();
+        // Kurangi stok dengan jumlah yang dibeli, false supaya stok - jumlah jadi ekspresi SQL
+        $builder->set('stok', 'stok - ' . (int)$jumlah, false);
+        $builder->where('product_id', $product_id);
+        return $builder->update();
+    }
     }
 
 
