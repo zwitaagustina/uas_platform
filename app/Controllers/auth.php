@@ -2,23 +2,15 @@
 
 namespace App\Controllers;
 
+use App\Controllers\BaseController;
 use App\Models\ModelAuth;
-use CodeIgniter\Controller;
 
-class Auth extends Controller
+class Auth extends BaseController
 {
-    protected $session;
-    protected $authModel;
-    protected $helpers = ['form', 'url'];
-
-    public function __construct()
-    {
-        $this->session = session();
-        $this->authModel = new ModelAuth();
-    }
-
     public function login()
     {
+        helper(['form']);
+
         if ($this->request->getMethod() === 'post') {
             $rules = [
                 'username' => 'required',
@@ -31,20 +23,20 @@ class Auth extends Controller
                 ]);
             }
 
+            $model = new ModelAuth();
             $username = $this->request->getPost('username');
             $password = $this->request->getPost('password');
+            $user = $model->getUserByUsername($username);
 
-            $user = $this->authModel->cek_login($username, $password);
-
-            if ($user) {
-                $this->session->set([
+            if ($user && password_verify($password, $user['password'])) {
+                session()->set([
                     'username' => $user['username'],
                     'logged_in' => true
                 ]);
-                return redirect()->to(base_url('dasboard'));
+                return redirect()->to('/dashboard'); // <-- Redirect berhasil login
             } else {
-                $this->session->setFlashdata('pesan', '<div class="alert alert-danger">Username atau Password salah!</div>');
-                return redirect()->back();
+                session()->setFlashdata('pesan', '<div class="alert alert-danger">Username atau Password salah!</div>');
+                return redirect()->back()->withInput();
             }
         }
 
@@ -52,8 +44,14 @@ class Auth extends Controller
     }
 
     public function logout()
-    {
-        $this->session->destroy();
-        return redirect()->to(base_url('auth/login'));
-    }
+{
+    session()->destroy();
+    return redirect()->to('/auth/login');
 }
+
+}
+
+
+
+
+

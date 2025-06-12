@@ -7,19 +7,13 @@ use CodeIgniter\Model;
 class ModelAuth extends Model
 {
     protected $table = 'users';
+    protected $allowedFields = ['username', 'password', 'nama'];
 
-    public function cek_login($username, $password)
+    public function getUserByUsername($username)
     {
-        // Ambil data user berdasarkan username
-        $user = $this->where('username', $username)->first();
-
-        // Verifikasi password langsung (disarankan hash jika memungkinkan)
-        if ($user && $user['password'] === $password) {
-            return $user;
-        }
-
-        return null;
+        return $this->where('username', $username)->first();
     }
 }
+
 
                 

@@ -26,6 +26,10 @@ $routes->get('kategori/rok_gaun', 'KategoriController::rok_gaun');
 $routes->get('kategori/aksesoris', 'KategoriController::aksesoris');
 
 // Tambahan rute untuk Auth (login & logout)
-$routes->get('/auth/login', 'Auth::login');
-$routes->post('/auth/login', 'Auth::login');
-$routes->get('/auth/logout', 'Auth::logout');
+$routes->get('/', 'Auth::login'); // default halaman login
+$routes->get('auth/login', 'Auth::login');
+$routes->post('auth/login', 'Auth::login'); // untuk form login POST
+$routes->get('registrasi/index', 'Registrasi::index');
+$routes->post('registrasi/index', 'Registrasi::index'); // untuk form registrasi POST
+$routes->get('dashboard', 'Dashboard::index'); // arahkan setelah login berhasil
+

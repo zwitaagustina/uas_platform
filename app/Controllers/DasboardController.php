@@ -21,6 +21,7 @@ class DasboardController extends BaseController
 
     public function index()
     {
+        
         $riwayatData = $this->modelRiwayat->tampil_data();
         $totalRiwayat = is_array($riwayatData) ? count($riwayatData) : 0;
 

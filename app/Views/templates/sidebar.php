@@ -51,6 +51,7 @@
             <li class="nav-item">
             <a class="nav-link" href="<?= base_url('kategori/tshirt') ?>">
                 <i class="fas fa-fw fa-th"></i>
+                <i class="ri-t-shirt-th"></i>
                 <span>T-shirt</span>
             </a>
             </li>
@@ -172,31 +173,28 @@
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                  <?= session()->get('username') ?? 'Guest' ?>
-                </span>
-                <img class="img-profile rounded-circle" src="<?= base_url('assets/img/user.png') ?>">
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                   aria-labelledby="userDropdown">
-                <?php if(session()->has('username')): ?>
-                  <a class="dropdown-item" href="<?= base_url('auth/logout') ?>">
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Logout
-                  </a>
-                <?php else: ?>
-                  <a class="dropdown-item" href="<?= base_url('auth/login') ?>">
-                    <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Login
-                  </a>
-                <?php endif; ?>
-              </div>
-            </li>
+                        <!-- User Information -->
+                        <ul class="navbar-nav ml-auto">
+                            <?php if (session()->get('username')): ?>
+                                <li class="nav-item">
+                                    <span class="nav-link">
+                                        Selamat Datang, <strong><?= esc(session()->get('username')) ?></strong>
+                                    </span>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?= base_url('auth/logout') ?>">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </a>
+                                </li>
+                            <?php else: ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="<?= base_url('auth/login') ?>">
+                                        <i class="fas fa-sign-in-alt"></i> Masuk
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+
 
           </ul>
 

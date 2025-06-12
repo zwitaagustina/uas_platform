@@ -36,8 +36,8 @@
                     </table>
 
                     <!-- Tombol Aksi -->
-                    <a href="<?= base_url('dasboard/tambah_ke_keranjang/' . $barang['product_id']) ?>" class="btn btn-sm btn-success">Tambah ke Keranjang</a>
                     <a href="<?= base_url('dasboard') ?>" class="btn btn-sm btn-danger">Kembali</a>
+                    <a href="<?= base_url('dasboard/tambah_ke_keranjang/' . $barang['product_id']) ?>" class="btn btn-sm btn-success">Tambah ke Keranjang</a>
                 </div>
             </div>
         </div>
