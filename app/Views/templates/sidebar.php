@@ -26,18 +26,22 @@
             </li>
 
 
-            <!-- Tambahkan Riwayat Pesanan di sini -->
-            <li class="nav-item">
-                <a class="nav-link d-flex justify-content-between align-items-center" href="<?= base_url('riwayat') ?>">
-                    <div>
-                        <i class="fas fa-history"></i>
-                        <span>Riwayat Pesanan</span>
-                    </div>
-                    <span class="badge badge-danger badge-counter">
-                        <?= esc($totalRiwayat ?? 0) ?>
-                    </span>
-                </a>
-            </li>
+            <?php $session = session(); ?>
+            <?php if ($session->get('username')): ?>
+                <!-- Menu Riwayat hanya tampil jika sudah login -->
+                <li class="nav-item">
+                    <a class="nav-link d-flex justify-content-between align-items-center" href="<?= base_url('riwayat') ?>">
+                        <div>
+                            <i class="fas fa-history"></i>
+                            <span>Riwayat Pesanan</span>
+                        </div>
+                        <span class="badge badge-danger badge-counter">
+                            <?= esc($totalRiwayat ?? 0) ?>
+                        </span>
+                    </a>
+                </li>
+            <?php endif; ?>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -173,7 +177,7 @@
                         if ($session->get('username')):
                         ?>
                             <li>
-                                <div>Selamat Datang <?= esc($session->get('username')) ?></div>
+                                <div class="mr-3">Selamat Datang <?= esc($session->get('username')) ?></div>
                             </li>
                             <li>
                                 <a href="<?= base_url('auth/logout') ?>">Logout</a>

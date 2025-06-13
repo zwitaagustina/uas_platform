@@ -42,30 +42,47 @@ class DasboardController extends BaseController
     }
 
     public function tambah_ke_keranjang($id)
-    {
-        $barang = $this->modelBarang->tampilkan($id);
-        if (!$barang) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-        }
+{
+    // Cek apakah user sudah login
+    if (!$this->session->get('logged_in')) {
+        // Simpan URL agar bisa redirect kembali setelah login
+        $this->session->setFlashdata('redirect_back', current_url());
 
-        $cart = $this->session->get('cart') ?? [];
-        if (isset($cart[$id])) {
-            if ($cart[$id]['qty'] < $barang['stok']) {
-                $cart[$id]['qty'] += 1;
-            }
-        } else {
-            $cart[$id] = [
-                'id' => $barang['product_id'],
-                'name' => $barang['nama_produk'],
-                'price' => $barang['harga'],
-                'qty' => 1,
-                'stok' => $barang['stok'],
-            ];
-        }
-
-        $this->session->set('cart', $cart);
-        return redirect()->to(base_url('dasboard'));
+        // Redirect ke form login
+        return redirect()->to(base_url('auth/login'))->with('error', 'Silakan login terlebih dahulu untuk menambahkan produk ke keranjang.');
     }
+
+    // Ambil data barang
+    $barang = $this->modelBarang->tampilkan($id);
+    if (!$barang) {
+        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+    }
+
+    // Ambil data keranjang dari session
+    $cart = $this->session->get('cart') ?? [];
+
+    // Cek apakah barang sudah ada di keranjang
+    if (isset($cart[$id])) {
+        if ($cart[$id]['qty'] < $barang['stok']) {
+            $cart[$id]['qty'] += 1;
+        }
+    } else {
+        $cart[$id] = [
+            'id' => $barang['product_id'],
+            'name' => $barang['nama_produk'],
+            'price' => $barang['harga'],
+            'qty' => 1,
+            'stok' => $barang['stok'],
+        ];
+    }
+
+    // Simpan kembali ke session
+    $this->session->set('cart', $cart);
+
+    // Redirect kembali ke halaman dasboard
+    return redirect()->to(base_url('dasboard'));
+}
+
 
     public function kurangi_dari_keranjang($id)
     {
@@ -128,51 +145,27 @@ class DasboardController extends BaseController
         echo view('templates/footer');
     }
 
-    public function proses_pesanan()
+ public function proses_pesanan()
 {
-    $nama_pemesan    = $this->request->getPost('nama');
-    $alamat          = $this->request->getPost('alamat');
-    $no_telp         = $this->request->getPost('no_telp');
-    $jasa_pengiriman = $this->request->getPost('jasa_pengiriman');
-    $bank            = $this->request->getPost('bank');
-    $cart            = $this->session->get('cart') ?? [];
-
-    if (empty($cart)) {
-        return redirect()->to(base_url('dasboard/lihat_keranjang'))->with('error', 'Keranjang kosong.');
-    }
+    $session = session();
+    $user_id = $session->get('user_id');  // Ambil user_id dari session
 
     $dataInvoice = [
-        'nama_pemesan'    => $nama_pemesan,
-        'alamat'          => $alamat,
-        'no_telp'         => $no_telp,
-        'jasa_pengiriman' => $jasa_pengiriman,
-        'bank'            => $bank,
+        'nama_pemesan' => $this->request->getPost('nama'),
+        'alamat' => $this->request->getPost('alamat'),
+        'no_telp' => $this->request->getPost('no_telp'),
+        'jasa_pengiriman' => $this->request->getPost('jasa_pengiriman'),
+        'bank' => $this->request->getPost('bank'),
+        'user_id' => $user_id,  // Simpan user_id di database invoice
     ];
 
-    $id_invoice = $this->modelRiwayat->simpan_invoice($dataInvoice, $cart);
+    $cartItems = $session->get('cart');
 
-    if ($id_invoice) {
-        // Update stok produk per item setelah invoice berhasil disimpan
-        foreach ($cart as $item) {
-            $this->modelBarang->updateStok($item['id'], $item['qty']);
-        }
+    $this->modelRiwayat->simpan_invoice($dataInvoice, $cartItems);
 
-        $this->session->remove('cart');
-
-        $data = [
-            'judul' => 'Konfirmasi Pesanan',
-            'id_invoice' => $id_invoice,
-            'total_item' => 0, // Karena keranjang sudah dihapus
-        ];
-
-        echo view('templates/header');
-        echo view('templates/sidebar', $data);
-        echo view('konfirmasi_pesanan', $data);
-        echo view('templates/footer');
-    } else {
-        return redirect()->back()->with('error', 'Gagal memproses pesanan.');
-    }
+    // Hapus keranjang dan redirect sesuai kebutuhan
 }
+
 
     public function detail($id_brg)
     {
