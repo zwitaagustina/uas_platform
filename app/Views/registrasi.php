@@ -17,7 +17,18 @@
                                 <h1 class="h4 text-gray-900 mb-4">Registrasi Akun</h1>
                             </div>
 
-                            <?= session()->getFlashdata('pesan') ?>
+                            <!-- Notifikasi flashdata -->
+                            <?php if (session()->getFlashdata('pesan')) : ?>
+                                <div class="alert alert-danger text-center">
+                                    <?= session()->getFlashdata('pesan') ?>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if (session()->getFlashdata('sukses')) : ?>
+                                <div class="alert alert-success text-center">
+                                    <?= session()->getFlashdata('sukses') ?>
+                                </div>
+                            <?php endif; ?>
 
                             <form method="post" action="<?= base_url('registrasi/index') ?>" class="user">
                                 <?= csrf_field() ?>

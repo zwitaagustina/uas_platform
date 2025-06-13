@@ -2,59 +2,69 @@
 
 namespace App\Controllers;
 
-use App\Models\ModelAuth;
-use CodeIgniter\Controller;
+use App\Controllers\BaseController;
+use App\Models\model_auth;
 
-class Registrasi extends Controller
+class Registrasi extends BaseController
 {
+    protected $modelAuth;
+
+    public function __construct()
+    {
+        $this->modelAuth = new model_auth();
+        helper('form');
+    }
+
     public function index()
     {
-        helper(['form']);
-
-        if ($this->request->getMethod() === 'post') {
-            $rules = [
-                'nama' => 'required',
-                'username' => 'required|is_unique[users.username]',
-                'password_1' => 'required|min_length[5]|matches[password_2]',
-                'password_2' => 'required|matches[password_1]'
-            ];
-
-            $messages = [
-                'nama' => [
-                    'required' => 'Nama wajib diisi!'
-                ],
-                'username' => [
+        $rules = [
+            'nama' => [
+                'label' => 'Nama',
+                'rules' => 'required',
+                'errors' => ['required' => 'Nama wajib diisi!'],
+            ],
+            'username' => [
+                'label' => 'Username',
+                'rules' => 'required|is_unique[users.username]',
+                'errors' => [
                     'required' => 'Username wajib diisi!',
-                    'is_unique' => 'Username sudah digunakan!'
+                    'is_unique' => 'Username sudah digunakan!',
                 ],
-                'password_1' => [
+            ],
+            'password_1' => [
+                'label' => 'Password',
+                'rules' => 'required|min_length[6]',
+                'errors' => [
                     'required' => 'Password wajib diisi!',
-                    'min_length' => 'Password minimal 5 karakter',
-                    'matches' => 'Password tidak cocok'
+                    'min_length' => 'Password minimal 6 karakter!',
                 ],
-                'password_2' => [
+            ],
+            'password_2' => [
+                'label' => 'Konfirmasi Password',
+                'rules' => 'required|matches[password_1]',
+                'errors' => [
                     'required' => 'Konfirmasi password wajib diisi!',
-                    'matches' => 'Password tidak cocok'
-                ]
-            ];
+                    'matches' => 'Konfirmasi password tidak cocok!',
+                ],
+            ],
+        ];
 
-            if (!$this->validate($rules, $messages)) {
-                return view('registrasi', [
-                    'validation' => $this->validator
-                ]);
-            }
-
-            $model = new ModelAuth();
-            $model->save([
+        if (!$this->validate($rules)) {
+            $data = ['validation' => $this->validator];
+            echo view('templates/header');
+            echo view('registrasi', $data);
+            echo view('templates/footer');
+        } else {
+            $data = [
+                'nama' => $this->request->getPost('nama'),
                 'username' => $this->request->getPost('username'),
                 'password' => password_hash($this->request->getPost('password_1'), PASSWORD_DEFAULT),
-                'nama'     => $this->request->getPost('nama')
-            ]);
+            ];
 
-            session()->setFlashdata('pesan', '<div class="alert alert-success">Registrasi berhasil, silakan login!</div>');
-            return redirect()->to('auth/login');
+            $this->modelAuth->insert($data);
+
+            session()->setFlashdata('sukses', 'Registrasi berhasil! Silakan login.');
+            return redirect()->to(base_url('auth/login'));
         }
-
-        return view('registrasi');
     }
 }

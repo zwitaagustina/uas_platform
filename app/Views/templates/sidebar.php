@@ -9,7 +9,7 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon">
-                <img src="<?= base_url('assets/img/logo.png') ?>" class="icon-img" alt="Dashboard" style="width: 50px; height: 50px;">
+                    <img src="<?= base_url('assets/img/logo.png') ?>" class="icon-img" alt="Dashboard" style="width: 50px; height: 50px;">
                 </div>
                 <div class="sidebar-brand-text mx-3">FEMMEA</div>
             </a>
@@ -18,7 +18,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-                    <li class="nav-item active">
+            <li class="nav-item active">
                 <a href="<?= base_url('dasboard') ?>" class="nav-link btn btn-sm btn-primary">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
@@ -26,18 +26,18 @@
             </li>
 
 
-              <!-- Tambahkan Riwayat Pesanan di sini -->
+            <!-- Tambahkan Riwayat Pesanan di sini -->
             <li class="nav-item">
-                 <a class="nav-link d-flex justify-content-between align-items-center" href="<?= base_url('riwayat') ?>">
+                <a class="nav-link d-flex justify-content-between align-items-center" href="<?= base_url('riwayat') ?>">
                     <div>
-                <i class="fas fa-history"></i>
-                <span>Riwayat Pesanan</span>
-                            </div>
-               <span class="badge badge-danger badge-counter">
-                    <?= esc($totalRiwayat ?? 0) ?>
-                </span>
-                        </a>
-                    </li>
+                        <i class="fas fa-history"></i>
+                        <span>Riwayat Pesanan</span>
+                    </div>
+                    <span class="badge badge-danger badge-counter">
+                        <?= esc($totalRiwayat ?? 0) ?>
+                    </span>
+                </a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -47,65 +47,58 @@
                 Kategori
             </div>
 
-                        <!-- Nav Item - Tables -->
+            <!-- Nav Item - Tables -->
+            <!-- T-shirt -->
             <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('kategori/tshirt') ?>">
-                <i class="fas fa-fw fa-th"></i>
-                <i class="ri-t-shirt-th"></i>
-                <span>T-shirt</span>
-            </a>
+                <a class="nav-link" href="<?= base_url('kategori/tshirt') ?>">
+                    <i class="fas fa-tshirt"></i>
+                    <span>T-shirt</span>
+                </a>
             </li>
 
             <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('kategori/kemeja_blus') ?>">
-                <i class="fas fa-fw fa-th"></i>
-                <span>Kemeja & Blus</span>
-            </a>
+                <a class="nav-link" href="<?= base_url('kategori/kemeja_blus') ?>">
+                    <i class="fas fa-fw fa-th"></i>
+                    <span>Kemeja & Blus</span>
+                </a>
             </li>
 
+
+            <!-- Sweater & Cardigan -->
             <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('kategori/sweater_cardigan') ?>">
-                <i class="fas fa-fw fa-th"></i>
-                <span>Sweater & Cardigan</span>
-            </a>
+                <a class="nav-link" href="<?= base_url('kategori/sweater_cardigan') ?>">
+                    <i class="fas fa-snowflake"></i> <!-- stylistically representing warmth -->
+                    <span>Sweater & Cardigan</span>
+                </a>
             </li>
 
+            <!-- Celana -->
             <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('kategori/celana') ?>">
-                <i class="fas fa-fw fa-th"></i>
-                <span>Celana</span>
-            </a>
+                <a class="nav-link" href="<?= base_url('kategori/celana') ?>">
+                    <i class="fas fa-user-tie"></i> <!-- closest FA icon resembling pants -->
+                    <span>Celana</span>
+                </a>
             </li>
 
+            <!-- Rok & Gaun -->
             <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('kategori/rok_gaun') ?>">
-                <i class="fas fa-fw fa-th"></i>
-                <span>Rok & Gaun</span>
-            </a>
+                <a class="nav-link" href="<?= base_url('kategori/rok_gaun') ?>">
+                    <i class="fas fa-female"></i>
+                    <span>Rok & Gaun</span>
+                </a>
             </li>
 
+            <!-- Aksesoris -->
             <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('kategori/aksesoris') ?>">
-                <i class="fas fa-fw fa-th"></i>
-                <span>Aksesoris</span>
-            </a>
+                <a class="nav-link" href="<?= base_url('kategori/aksesoris') ?>">
+                    <i class="fas fa-gem"></i>
+                    <span>Aksesoris</span>
+                </a>
             </li>
 
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
 
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>
 
         </ul>
         <!-- End of Sidebar -->
@@ -165,37 +158,38 @@
                             </div>
                         </li>
 
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="<?= base_url('dasboard/lihat_keranjang') ?>">
                                 Keranjang Belanja: <?= esc($total_item) ?> items
                             </a>
                         </li>
+                    </ul>
+                    <div class="topbar-divider d-none d-sm-block"></div>
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- User Information -->
-                        <ul class="navbar-nav ml-auto">
-                            <?php if (session()->get('username')): ?>
-                                <li class="nav-item">
-                                    <span class="nav-link">
-                                        Selamat Datang, <strong><?= esc(session()->get('username')) ?></strong>
-                                    </span>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="<?= base_url('auth/logout') ?>">
-                                        <i class="fas fa-sign-out-alt"></i> Logout
-                                    </a>
-                                </li>
-                            <?php else: ?>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="<?= base_url('auth/login') ?>">
-                                        <i class="fas fa-sign-in-alt"></i> Masuk
-                                    </a>
-                                </li>
-                            <?php endif; ?>
-                        </ul>
+                    <!-- User Information -->
+                    <ul class="na navbar-nav navbar-right">
+                        <?php
+                        $session = session(); // Inisialisasi session CI4
+                        if ($session->get('username')):
+                        ?>
+                            <li>
+                                <div>Selamat Datang <?= esc($session->get('username')) ?></div>
+                            </li>
+                            <li>
+                                <a href="<?= base_url('auth/logout') ?>">Logout</a>
+                            </li>
+                        <?php else: ?>
+                            <li>
+                                <a href="<?= base_url('auth/login') ?>">Login</a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
 
 
-          </ul>
 
-        </nav>
+                    </ul>
+
+
+                    </ul>
+
+                </nav>
