@@ -17,12 +17,3 @@ Proyek ini dikembangkan oleh tim kolaboratif:
 * **Zwita**
 * **Yosephine**
 * **Vincensia**
-
-## Instalasi & Setup
-
-### Prasyarat
-
-* PHP versi 8.0 atau lebih tinggi
-* Database MySQL
-* Framework CodeIgniter 4
-* Composer telah terpasang
